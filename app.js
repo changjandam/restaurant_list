@@ -30,5 +30,5 @@ app.get('/search', (req, res) => {
 // set port
 const port = 3000
 app.listen(port, () => {
-  console.log(`The web app is running on http://localhost:${port}`)
+  console.log(`The web is running on http://localhost:${port}`)
 })
