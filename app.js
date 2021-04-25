@@ -1,17 +1,17 @@
-//set express and express-handlebars
+// set express and express-handlebars
 const express = require('express')
 const app = express()
 const expressHandlebars = require('express-handlebars')
 app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-//set public file
+// set public file
 app.use(express.static('public'))
 
-//import restaurant list
+// import restaurant list
 const restaurantList = require('./restaurant.json').results
 
-//set path
+// set path
 app.get('/', (req, res) => {
   res.render('index', { restaurantList })
 })
@@ -27,13 +27,8 @@ app.get('/search', (req, res) => {
   res.render('index', { restaurantList: matchedRestaurant, keyword })
 })
 
-
-
-
-//set port
+// set port
 const port = 3000
 app.listen(port, () => {
   console.log(`The web app is running on http://localhost:${port}`)
 })
-
-
