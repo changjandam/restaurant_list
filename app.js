@@ -5,6 +5,20 @@ const expressHandlebars = require('express-handlebars')
 app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+// set mongoose
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/restaurant_list', { useNewUrlParser: true, useUnifiedTopology: true })
+// get db status
+const db = mongoose.connection
+// db link err
+db.on('error', () => {
+  console.log('mongodb error.')
+})
+// db link success
+db.once('open', () => {
+  console.log('mongodb connected.')
+})
+
 // set public file
 app.use(express.static('public'))
 
