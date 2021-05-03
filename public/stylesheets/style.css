@@ -79,6 +79,9 @@ header {
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+#plus-card:hover{
+  transform: scale(1.05);
+}
 /* @media screen and (max-width: 992px) {
   
   .card img{

@@ -2,6 +2,8 @@
 const express = require('express')
 const app = express()
 const expressHandlebars = require('express-handlebars')
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true }))
 app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
@@ -31,23 +33,48 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  Restaurant.find({ id: parseInt(req.params.restaurant_id) })
+app.get('/restaurants/select/:restaurant_id', (req, res) => {
+  Restaurant.find({ _id: req.params.restaurant_id })
     .lean()
-    .then((restaurant) => {
-      const showRestaurant = restaurant[0]
+    .then((restaurants) => {
+      const showRestaurant = restaurants[0]
       res.render('show', { showRestaurant })
     })
     .catch(error => console.error(error))
 })
 
-app.get('/search', (req, res) => {
+app.get('/restaurants/search', (req, res) => {
   const keyword = req.query.keyword
   Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }] })
     .lean()
     .then((restaurants) => {
       res.render('index', { restaurants, keyword })
     })
+    .catch(error => console.error(error))
+})
+
+app.get('/restaurants/new', (req, res) => {
+  Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('new'))
+    .catch(error => console.error(error))
+})
+
+app.post('/', (req, res) => {
+  Restaurant.create(
+    {
+      name: req.body.name,
+      name_en: req.body.name_en,
+      category: req.body.category,
+      image: req.body.image,
+      location: req.body.location,
+      phone: req.body.phone,
+      google_map: req.body.google_map,
+      rating: req.body.rating,
+      description: req.body.description
+    }
+  )
+    .then(res.redirect('/'))
     .catch(error => console.error(error))
 })
 
