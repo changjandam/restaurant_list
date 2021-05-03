@@ -36,7 +36,7 @@
   <div class="row">
     {{#each restaurants}}
     <div class="col-lg-3 col-sm-4 col-6 my-3">
-      <a href="/restaurants/select/{{this._id}}" class="text-secondary">
+      <a href="/restaurants/{{this._id}}" class="text-secondary">
         <div class="card">
           <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
           <div class="card-body p-3">
@@ -52,14 +52,19 @@
             </span>
 
           </div>
-          <div class="card-footer"></div>
+          <div class="card-footer">
+
+            <a href="/restaurants/{{this._id}}/edit" class="btn btn-primary btn-lg active" role="button">修改</a>
+            <a href="/restaurants/{{this._id}}/delete" class="btn btn-danger btn-lg active" role="button">刪除</a>
+          </div>
         </div>
       </a>
     </div>
 
     {{/each}}
     <div class="col-lg-3 col-sm-4 col-6 my-3 py-5 d-flex justify-content-center align-items-center"><a
-        href="/restaurants/new" class="text-secondary"><i class="fas fa-plus-circle fa-10x" id="plus-card"></i></a>
+        href="/restaurants/new/create" class="text-secondary"><i class="fas fa-plus-circle fa-10x"
+          id="plus-card"></i></a>
     </div>
   </div>
 </div>
