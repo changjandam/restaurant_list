@@ -52,10 +52,11 @@
             </span>
 
           </div>
-          <div class="card-footer">
+          <div class="card-footer d-flex justify-content-end">
 
-            <a href="/restaurants/{{this._id}}/edit" class="btn btn-primary btn-lg active" role="button">修改</a>
-            <a href="/restaurants/{{this._id}}/delete" class="btn btn-danger btn-lg active" role="button">刪除</a>
+            <a href="/restaurants/{{this._id}}/edit" class="btn btn-info active mr-1" role="button">修改</a>
+            <form action="/restaurants/{{this._id}}/delete" method="post"><button type="submit"
+                class="btn btn-danger ml-1">刪除</button></form>
           </div>
         </div>
       </a>
