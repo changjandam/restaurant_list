@@ -55,7 +55,7 @@
           <div class="card-footer d-flex justify-content-end">
 
             <a href="/restaurants/{{this._id}}/edit" class="btn btn-info active mr-1" role="button">修改</a>
-            <form action="/restaurants/{{this._id}}/delete" method="post"><button type="submit"
+            <form action="/restaurants/{{this._id}}?_method=DELETE" method="post"><button type="submit"
                 class="btn btn-danger ml-1">刪除</button></form>
           </div>
         </div>
