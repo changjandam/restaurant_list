@@ -1,28 +1,26 @@
-// set express and express-handlebars
 const express = require('express')
 const app = express()
 const expressHandlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const Restaurant = require('./models/restaurant')
+const routes = require('./routes')
+
+app.use(routes)
 app.use(bodyParser.urlencoded({ extended: true }))
+
 app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// set mongoose
-const mongoose = require('mongoose')
-const Restaurant = require('./models/restaurant')
 mongoose.connect('mongodb://localhost/restaurant_list', { useNewUrlParser: true, useUnifiedTopology: true })
-// get db status
 const db = mongoose.connection
-// db link err
 db.on('error', () => {
   console.log('mongodb error.')
 })
-// db link success
 db.once('open', () => {
   console.log('mongodb connected.')
 })
 
-// set public file
 app.use(express.static('public'))
 
 // set path
@@ -52,14 +50,14 @@ app.get('/restaurants/search', (req, res) => {
     })
     .catch(error => console.error(error))
 })
-
+// TODO: change new/create to new
 app.get('/restaurants/new/create', (req, res) => {
   Restaurant.find()
     .lean()
     .then(restaurants => res.render('new'))
     .catch(error => console.error(error))
 })
-
+// TODO: delete new/create
 app.post('/restaurants/new/create', (req, res) => {
   const newData = req.body
   Restaurant.create(newData)
@@ -76,7 +74,7 @@ app.get('/restaurants/:restaurant_id/edit', (req, res) => {
     })
     .catch(error => console.error(error))
 })
-
+// TODO: change it to RESTful
 app.post('/restaurants/:restaurant_id/edit', (req, res) => {
   const id = req.params.restaurant_id
   const updateData = req.body
@@ -96,7 +94,7 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
     .then(res.redirect(`/restaurants/${id}`))
     .catch(error => console.log(error))
 })
-
+// TODO: change it to RESTful
 app.post('/restaurants/:restaurant_id/delete', (req, res) => {
   const id = req.params.restaurant_id
   Restaurant.findById(id)
