@@ -4,26 +4,14 @@ const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 
 router.get('/new', (req, res) => {
-  Restaurant.find()
-    .lean()
-    .then(restaurants => res.render('new'))
-    .catch(error => console.error(error))
+  res.render('new')
 })
 
-router.post('/new', (req, res) => {
+router.post('/', (req, res) => {
   const newData = req.body
+  console.log(req.body)
   Restaurant.create(newData)
     .then(res.redirect('/'))
-    .catch(error => console.error(error))
-})
-
-router.get('/:restaurant_id', (req, res) => {
-  Restaurant.find({ _id: req.params.restaurant_id })
-    .lean()
-    .then((restaurants) => {
-      const showRestaurant = restaurants[0]
-      res.render('show', { showRestaurant })
-    })
     .catch(error => console.error(error))
 })
 
@@ -33,6 +21,26 @@ router.get('/search', (req, res) => {
     .lean()
     .then((restaurants) => {
       res.render('index', { restaurants, keyword })
+    })
+    .catch(error => console.error(error))
+})
+
+router.get('/sort/:method', (req, res) => {
+  // const method = req.body.method
+  console.log(req.params)
+  Restaurant.find()
+    .lean()
+    .sort()
+    .then(restaurants => res.render('/', { restaurants }))
+    .catch(error => console.error(error))
+})
+
+router.get('/:restaurant_id', (req, res) => {
+  Restaurant.find({ _id: req.params.restaurant_id })
+    .lean()
+    .then((restaurants) => {
+      const showRestaurant = restaurants[0]
+      res.render('show', { showRestaurant })
     })
     .catch(error => console.error(error))
 })
@@ -50,17 +58,17 @@ router.get('/:restaurant_id/edit', (req, res) => {
 router.put('/:restaurant_id', (req, res) => {
   const mongoId = req.params.restaurant_id
   const {
-    name, name_en, category, image, location, phone, google_map, rating, description
+    name, name_en: nameEn, category, image, location, phone, google_map: googleMap, rating, description
   } = req.body
   Restaurant.findById(mongoId)
     .then((restaurant) => {
       restaurant.name = name
-      restaurant.name_en = name_en
+      restaurant.name_en = nameEn
       restaurant.category = category
       restaurant.image = image
       restaurant.location = location
       restaurant.phone = phone
-      restaurant.google_map = google_map
+      restaurant.google_map = googleMap
       restaurant.rating = rating
       restaurant.description = description
       restaurant.save()
