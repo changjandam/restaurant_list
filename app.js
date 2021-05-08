@@ -13,7 +13,7 @@ app.use(methodOverride('_method'))
 
 app.use(routes)
 
-app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }))
+app.engine('handlebars', expressHandlebars({ defaultLayout: 'main', helpers: require('./config/handlebars-helpers') }))
 app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))

@@ -26,12 +26,14 @@ router.get('/search', (req, res) => {
 })
 
 router.get('/sort/:method', (req, res) => {
-  // const method = req.body.method
-  console.log(req.params)
+  const method = req.params.method === 'name_desc' ? 'name' : req.params.method
+  const order = req.params.method === 'name_desc' ? 'desc' : 'asc'
+  console.log(method)
+  console.log(order)
   Restaurant.find()
     .lean()
-    .sort()
-    .then(restaurants => res.render('/', { restaurants }))
+    .sort({ [method]: order })
+    .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.error(error))
 })
 

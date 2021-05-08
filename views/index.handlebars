@@ -20,15 +20,16 @@
 
 <!-- restaurant list -->
 <div class="container mt-5">
-  <div class="dropdown">
+  <div class="dropdown d-flex justify-content-end">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
-      Dropdown button
+      Sort
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
+      <a class="dropdown-item" href="/restaurants/sort/name">A -> Z</a>
+      <a class="dropdown-item" href="/restaurants/sort/name_desc">Z -> A</a>
+      <a class="dropdown-item" href="/restaurants/sort/category">類別</a>
+      <a class="dropdown-item" href="/restaurants/sort/location">地區</a>
     </div>
   </div>
   <div class="row">
@@ -40,8 +41,12 @@
           <div class="card-body p-3">
             <h6 class="card-title mb-1">{{this.name}}</h6>
 
-            <div class="restaurant-category mb-1">
+            <div class="restaurant-detail mb-1">
               <i class="fas fa-utensils pr-2"></i> {{this.category}}
+            </div>
+
+            <div class="restaurant-detail mb-1">
+              <i class="fas fa-map-marker-alt pr-2"></i> {{cut this.location}}
             </div>
 
             <span class="badge badge-pill badge-danger font-weight-normal">
