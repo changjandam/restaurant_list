@@ -3,9 +3,9 @@ const Restaurant = require('../restaurant')
 const restaurantList = require('../../restaurant.json').results
 
 // db link success
-db.once('open', () => {
+db.once('open', async () => {
   for (let i = 0; i < restaurantList.length; i++) {
-    Restaurant.create(
+    await Restaurant.create(
       {
         name: restaurantList[i].name,
         name_en: restaurantList[i].name_en,
@@ -19,5 +19,6 @@ db.once('open', () => {
       }
     )
   }
+  db.close()
   console.log('seed done')
 })
