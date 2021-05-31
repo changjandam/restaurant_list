@@ -9,7 +9,6 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
   const newData = req.body
-  console.log(req.body)
   Restaurant.create(newData)
     .then(res.redirect('/'))
     .catch(error => console.error(error))
@@ -28,8 +27,6 @@ router.get('/search', (req, res) => {
 router.get('/sort/:method', (req, res) => {
   const method = req.params.method === 'name_desc' ? 'name' : req.params.method
   const order = req.params.method === 'name_desc' ? 'desc' : 'asc'
-  console.log(method)
-  console.log(order)
   Restaurant.find()
     .lean()
     .sort({ [method]: order })

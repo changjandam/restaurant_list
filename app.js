@@ -1,5 +1,5 @@
 const express = require('express')
-const expressHandlebars = require('express-handlebars')
+const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
@@ -13,8 +13,8 @@ app.use(methodOverride('_method'))
 
 app.use(routes)
 
-app.engine('handlebars', expressHandlebars({ defaultLayout: 'main', helpers: require('./config/handlebars-helpers') }))
-app.set('view engine', 'handlebars')
+app.engine('hbs', exphbs({ defaultLayout: 'main', helpers: require('./config/handlebars-helpers'), extname: '.hbs' }))
+app.set('view engine', 'hbs')
 
 app.use(express.static('public'))
 
