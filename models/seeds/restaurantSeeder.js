@@ -15,7 +15,8 @@ db.once('open', async () => {
         phone: restaurantList[i].phone,
         google_map: restaurantList[i].google_map,
         rating: restaurantList[i].rating,
-        description: restaurantList[i].description
+        description: restaurantList[i].description,
+        owner_email: restaurantList[i].owner_email
       }
     )
   }
