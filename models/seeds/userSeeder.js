@@ -5,10 +5,12 @@ const User = require('../User')
 
 const USER_SEEDS = [
   {
+    name: 'user1',
     email: 'user1@exampel.com',
     password: '12345678'
   },
   {
+    name: 'user2',
     email: 'user2@exampel.com',
     password: '12345678'
   }
@@ -28,6 +30,6 @@ db.once('open', async () => {
       })
   }
 
-  console.log('seed done')
+  console.log('user seed done')
   process.exit()
 })

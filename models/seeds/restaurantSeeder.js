@@ -21,5 +21,5 @@ db.once('open', async () => {
     )
   }
   db.close()
-  console.log('seed done')
+  console.log('restaurant seed done')
 })
