@@ -7,7 +7,7 @@ const USER_SEEDS = [
   {
     name: 'user1',
     email: 'user1@example.com',
-    password: '123'
+    password: '12345678'
   },
   {
     name: 'user2',
