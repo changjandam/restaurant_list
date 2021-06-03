@@ -6,11 +6,11 @@ const session = require('express-session')
 const usePassport = require('./config/passport')
 const flash = require('connect-flash')
 
-require('./config/mongoose')
-
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
+
+require('./config/mongoose')
 
 const app = express()
 const routes = require('./routes')
