@@ -6,12 +6,12 @@ const User = require('../User')
 const USER_SEEDS = [
   {
     name: 'user1',
-    email: 'user1@exampel.com',
-    password: '12345678'
+    email: 'user1@example.com',
+    password: '123'
   },
   {
     name: 'user2',
-    email: 'user2@exampel.com',
+    email: 'user2@example.com',
     password: '12345678'
   }
 ]

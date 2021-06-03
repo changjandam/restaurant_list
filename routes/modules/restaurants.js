@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 
 const Restaurant = require('../../models/restaurant')
+let keyword = ''
+let method = ''
+let order = ''
 
 router.get('/new', (req, res) => {
   res.render('new')
@@ -9,28 +12,34 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
   const newData = req.body
+  newData.owner_email = req.user.email
+  console.log(newData)
   Restaurant.create(newData)
     .then(res.redirect('/'))
     .catch(error => console.error(error))
 })
 
 router.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }] })
+  keyword = req.query.keyword
+  Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' }, owner_email: req.user.email }, { category: { $regex: keyword, $options: 'i' }, owner_email: req.user.email }] })
     .lean()
+    .sort({ [method]: order })
     .then((restaurants) => {
       res.render('index', { restaurants, keyword })
     })
     .catch(error => console.error(error))
+  res.locals.keyword = keyword
 })
 
 router.get('/sort/:method', (req, res) => {
-  const method = req.params.method === 'name_desc' ? 'name' : req.params.method
-  const order = req.params.method === 'name_desc' ? 'desc' : 'asc'
-  Restaurant.find()
+  method = req.params.method === 'name_desc' ? 'name' : req.params.method
+  order = req.params.method === 'name_desc' ? 'desc' : 'asc'
+  Restaurant.find({ $or: [{ name: { $regex: keyword, $options: 'i' }, owner_email: req.user.email }, { category: { $regex: keyword, $options: 'i' }, owner_email: req.user.email }] })
     .lean()
     .sort({ [method]: order })
-    .then(restaurants => res.render('index', { restaurants }))
+    .then(restaurants => {
+      res.render('index', { restaurants })
+    })
     .catch(error => console.error(error))
 })
 

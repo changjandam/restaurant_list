@@ -10,7 +10,9 @@
     integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/style.css">
 
-  <title>Document</title>
+  <title>
+    我的餐廳清單
+  </title>
 </head>
 
 <body>
@@ -20,13 +22,17 @@
       <div class="container">
         <a class="navbar-brand" href="/">
           <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
-            width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
+            width="30" height="30" class="d-inline-block align-top">
           我的餐廳清單
         </a>
-        <a href="/restaurants/new" class="btn btn-primary px-3 active" role="button">新增</a>
+        {{#if isAuthenticated}}
+        <a href="/users/logout" class="btn btn-primary px-3 active" role="button">logout</a>
+        {{else}}
+        <a href="/users/login" class="btn btn-primary px-3 active" role="button">login</a>
+        {{/if}}
       </div>
     </nav>
-  
+
     <div class="banner"></div>
   </header>
   {{{body}}}
